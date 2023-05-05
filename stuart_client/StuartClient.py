@@ -76,10 +76,8 @@ class Authentication:
         Only requests a new token if there is no current one or it has expired.
         """
         if not self.access_token:
-            print("No token")
             self.access_token = self.request_access_token()
         elif self.token_expired():
-            print("Token expired")
             self.access_token = self.request_access_token()
 
         return self.access_token.get("access_token")

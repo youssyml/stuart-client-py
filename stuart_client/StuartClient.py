@@ -58,8 +58,10 @@ class Authentication:
         # checks if access token exists or has expired
         # if so, requests another one
         if not self.access_token:
+            print("No token")
             self.access_token = self.request_access_token()
         elif self.token_expired():
+            print("Token expired")
             self.access_token = self.request_access_token()
 
         return self.access_token.get("access_token")
@@ -69,7 +71,7 @@ class Authentication:
         return (
             float(self.access_token.get("created_at"))
             + float(self.access_token.get("expires_in"))
-            >= current_timestamp
+            <= current_timestamp
         )
 
 
@@ -89,7 +91,7 @@ class StuartClient:
             "Authorization": f"Bearer {self.auth.get_token()}",
         }
 
-    def get(self, resource, params):
+    def get(self, resource, params={}):
         response = requests.get(
             url=self.url(resource),
             headers=self.get_default_headers(),

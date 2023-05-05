@@ -6,6 +6,9 @@ import time
 class TestClient:
     @pytest.fixture
     def auth(self, requests_mock):
+        """
+        Fixture to return a valid auth for the tests
+        """
         env = Environment("SANDBOX")
         requests_mock.register_uri(
             "POST",
@@ -20,6 +23,9 @@ class TestClient:
 
     @pytest.mark.parametrize("method,status_code", [("GET", 200), ("POST", 204)])
     def test_success(self, requests_mock, auth, method, status_code):
+        """
+        Tests if successful GET and POST methods are handled correctly
+        """
         requests_mock.register_uri(
             method,
             auth.environment.base_url + "/success",
@@ -37,6 +43,9 @@ class TestClient:
 
     @pytest.mark.parametrize("method,status_code", [("GET", 301), ("POST", 404)])
     def test_failure(self, requests_mock, auth, method, status_code):
+        """
+        Tests if failed GET and POST methods raise an Exception
+        """
         requests_mock.register_uri(
             method,
             auth.environment.base_url + "/failure",

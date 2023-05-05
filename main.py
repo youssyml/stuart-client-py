@@ -1,5 +1,6 @@
 import os
 import json
+from random import randint
 from stuart_client.StuartClient import (
     Environment,
     Authentication,
@@ -40,7 +41,7 @@ job = {
             {
                 "address": "156 rue de Charonne, 75011 Paris",
                 "package_description": "Red packet.",
-                "client_reference": "12345678ABCDEFC",
+                "client_reference": f"{str(randint(10000000,99999999))}ABCD",
                 "comment": "code: 3492B. 3e étage droite. Sonner à Durand.",
                 "contact": {
                     "firstname": "Alex",

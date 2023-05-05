@@ -13,6 +13,14 @@ env = Environment("SANDBOX")
 auth = Authentication(env, client_id=client_id, client_secret=client_secret)
 client = StuartClient(auth)
 
+
+response = client.get(
+    "/v2/addresses/validate",
+    params={"address": "32 Coombe Ln, Raynes Park, London SW20 0LA", "type": "picking"},
+)
+print(response)
+
+
 job = {
     "job": {
         "transport_type": "bike",
@@ -44,12 +52,5 @@ job = {
         ],
     }
 }
-
-# response = client.get(
-#     "/v2/addresses/validate",
-#     params={"address": "32 Coombe Ln, Raynes Park, London SW20 0LA", "type": "picking"},
-# )
-
 response = client.post("/v2/jobs", json.dumps(job))
-
 print(response)
